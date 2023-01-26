@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [firstName, setFirstName] = useState("");
@@ -8,6 +8,8 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
+
+    const navigate = useNavigate();
 
     const handleSignUp = () => {
         if (!password.match(passwordAgain)) {
@@ -26,6 +28,7 @@ const Register = () => {
             .post("http://localhost:8000/api/v1/user/signup", data)
             .then((res) => {
                 console.log(res.data.msg);
+                navigate("/home");
             })
             .catch((err) => console.log(err.message));
     };
