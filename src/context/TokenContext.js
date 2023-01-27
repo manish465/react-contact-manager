@@ -34,7 +34,7 @@ const TokenContext = ({ children }) => {
             })
             .then(({ data }) => {
                 if (data.code === 200) {
-                    navigate("/home");
+                    navigate("/");
                 } else alert(data.msg);
             })
             .catch((err) => alert(err.message));

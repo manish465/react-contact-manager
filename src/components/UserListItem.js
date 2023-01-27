@@ -8,7 +8,12 @@ const UserListItem = ({ name, email, userId }) => {
         <div className="user-manager">
             <h3>{name}</h3>
             <h3>{email}</h3>
-            <button onClick={() => deleteUserById(userId)}>DEL</button>
+            <button
+                className="hover-anmiation"
+                onClick={() => deleteUserById(userId)}
+            >
+                DEL
+            </button>
         </div>
     );
 };

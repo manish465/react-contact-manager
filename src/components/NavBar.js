@@ -7,7 +7,13 @@ const NavBar = () => {
 
     return (
         <nav>
-            <Link to="/">
+            <Link
+                to={
+                    currentUser.isAuthenticate
+                        ? `/${currentUser.id}/dashboard`
+                        : "/"
+                }
+            >
                 <h1 className="hover-anmiation">CONTACT MANAGER</h1>
             </Link>
             <div>
