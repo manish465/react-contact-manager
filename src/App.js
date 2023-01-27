@@ -2,12 +2,9 @@ import "./styles.scss";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NavBar from "./components/NavBar";
-import Dashboard from "./pages/Dashboard";
 import TokenContext from "./context/TokenContext";
+import NavBar from "./components/NavBar";
+import { pageMap } from "./pages";
 
 const App = () => {
     return (
@@ -15,10 +12,13 @@ const App = () => {
             <TokenContext>
                 <NavBar />
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/:userId/dashboard" element={<Dashboard />} />
+                    {pageMap.map((page, key) => (
+                        <Route
+                            key={key}
+                            path={page.path}
+                            element={page.element}
+                        />
+                    ))}
                 </Routes>
             </TokenContext>
         </BrowserRouter>

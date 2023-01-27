@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const tokenContext = createContext();
 
 const TokenContext = ({ children }) => {
+    const [users, setUsers] = useState([]);
     const [currentUser, setCurrentUser] = useState({
         id: -1,
         token: "",
@@ -33,7 +34,6 @@ const TokenContext = ({ children }) => {
             })
             .then(({ data }) => {
                 if (data.code === 200) {
-                    alert(data.msg);
                     navigate("/home");
                 } else alert(data.msg);
             })
@@ -79,6 +79,20 @@ const TokenContext = ({ children }) => {
             });
     };
 
+    const fetchAllUsers = () => {
+        axios
+            .get("http://localhost:8000/api/v1/user", {
+                headers: { Authorization: `Bearer ${currentUser.token}` },
+            })
+            .then(({ data }) => {
+                setUsers(data.users);
+            })
+            .catch((err) => {
+                alert(err.message);
+                navigate("/");
+            });
+    };
+
     const handleLogout = () => {
         setCurrentUser({
             id: -1,
@@ -97,10 +111,12 @@ const TokenContext = ({ children }) => {
         <tokenContext.Provider
             value={{
                 currentUser,
+                users,
                 handleSignIn,
                 handleSignUp,
                 handleLogout,
                 fetchUserById,
+                fetchAllUsers,
             }}
         >
             {children}
