@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { tokenContext } from "../context/TokenContext";
 
 const Register = () => {
     const [firstName, setFirstName] = useState("");
@@ -9,31 +9,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [passwordAgain, setPasswordAgain] = useState("");
 
-    const navigate = useNavigate();
-
-    const handleSignUp = () => {
-        if (!password.match(passwordAgain)) {
-            console.log("Invelid User");
-        }
-
-        const data = {
-            firstName,
-            lastName,
-            email,
-            password,
-            role: "normal",
-        };
-
-        axios
-            .post("http://localhost:8000/api/v1/user/signup", data)
-            .then(({ data }) => {
-                if (data.code === 200) {
-                    alert(data.msg);
-                    navigate("/home");
-                } else alert(data.msg);
-            })
-            .catch((err) => alert(err.message));
-    };
+    const { handleSignUp } = useContext(tokenContext);
 
     return (
         <section className="user register">
@@ -74,7 +50,16 @@ const Register = () => {
                 </Link>
                 <button
                     className="primary hover-anmiation"
-                    onClick={handleSignUp}
+                    onClick={() =>
+                        handleSignUp({
+                            firstName,
+                            lastName,
+                            email,
+                            password,
+                            passwordAgain,
+                            role: "normal",
+                        })
+                    }
                 >
                     Register
                 </button>

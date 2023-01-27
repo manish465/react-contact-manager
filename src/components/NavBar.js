@@ -13,18 +13,12 @@ const NavBar = () => {
             <div>
                 <button className="secondary hover-anmiation">About</button>
                 {isAuthenticate && (
-                    <button
-                        className="secondary hover-anmiation"
-                        onClick={handleLogout}
-                    >
+                    <button className="secondary hover-anmiation">
                         Dashboard
                     </button>
                 )}
                 {isAuthenticate && (
-                    <button
-                        className="secondary hover-anmiation"
-                        onClick={handleLogout}
-                    >
+                    <button className="secondary hover-anmiation">
                         Contact
                     </button>
                 )}
