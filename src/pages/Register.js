@@ -26,11 +26,13 @@ const Register = () => {
 
         axios
             .post("http://localhost:8000/api/v1/user/signup", data)
-            .then((res) => {
-                console.log(res.data.msg);
-                navigate("/home");
+            .then(({ data }) => {
+                if (data.code === 200) {
+                    alert(data.msg);
+                    navigate("/home");
+                } else alert(data.msg);
             })
-            .catch((err) => console.log(err.message));
+            .catch((err) => alert(err.message));
     };
 
     return (

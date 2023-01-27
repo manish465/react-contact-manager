@@ -7,17 +7,23 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NavBar from "./components/NavBar";
 import Dashboard from "./pages/Dashboard";
+import TokenContext from "./context/TokenContext";
 
 const App = () => {
     return (
         <BrowserRouter>
-            <NavBar />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/user/:userId/dashboard" element={<Dashboard />} />
-            </Routes>
+            <TokenContext>
+                <NavBar />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route
+                        path="/user/:userId/dashboard"
+                        element={<Dashboard />}
+                    />
+                </Routes>
+            </TokenContext>
         </BrowserRouter>
     );
 };

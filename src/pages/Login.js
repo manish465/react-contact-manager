@@ -1,10 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { tokenContext } from "../context/TokenContext";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { setToken } = useContext(tokenContext);
 
     const navigate = useNavigate();
 
@@ -16,11 +20,14 @@ const Login = () => {
 
         axios
             .post("http://localhost:8000/api/v1/user/signin", data)
-            .then((res) => {
-                console.log(res.data);
-                navigate(`/user/${res.data.id}/dashboard`);
+            .then(({ data }) => {
+                if (data.code === 200) {
+                    setToken(data.token);
+                    alert(data.msg);
+                    navigate(`/user/${data.id}/dashboard`);
+                } else alert(data.msg);
             })
-            .catch((err) => console.log(err.message));
+            .catch((err) => alert(err.message));
     };
 
     return (
