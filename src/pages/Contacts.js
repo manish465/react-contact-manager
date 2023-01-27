@@ -21,7 +21,25 @@ const Contacts = () => {
     return (
         <section className="my-contacts">
             <h1>My Contacts</h1>
-            <div className="conatct-list"></div>
+            <div className="conatct-list">
+                {contacts.length !== 0 &&
+                    contacts.map((contact, key) => (
+                        <div className="conatct" key={key}>
+                            <h2 className="hover-anmiation">
+                                {contact.firstName + " " + contact.lastName}
+                            </h2>
+                            <h4>{contact.email}</h4>
+                            <div className="button-group">
+                                <button className="update hover-anmiation">
+                                    UPD
+                                </button>
+                                <button className="delete hover-anmiation">
+                                    DEL
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+            </div>
             <Link to={`/${currentUser.id}/contacts/add`}>
                 <button className="hover-anmiation">ADD CONTACT</button>
             </Link>

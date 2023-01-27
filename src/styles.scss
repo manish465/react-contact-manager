@@ -208,6 +208,62 @@ section.my-contacts {
         margin: 50px 0;
     }
 
+    .conatct-list {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        .conatct {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 300px;
+            margin: 10px 0;
+            color: #ffffff;
+            border: 2px dashed #ffffff;
+            background-color: #494949;
+            border-radius: 30px;
+            overflow: hidden;
+            flex-basis: 50%;
+
+            h2 {
+                cursor: pointer;
+                padding: 10px 30px;
+                font-size: 40px;
+
+                &:hover {
+                    color: #7c7a7a;
+                }
+            }
+            h4 {
+                padding: 10px 0;
+                font-size: 20px;
+            }
+            .button-group {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-self: stretch;
+                border-radius: inherit;
+                button {
+                    border-radius: inherit;
+                    border-radius: 0;
+                    padding: 10px 0;
+                    margin: 0;
+                    width: 100%;
+                    border: none;
+                }
+                button.update {
+                    background-color: #7c7a7a;
+                }
+                button.delete {
+                    background-color: #ff5d73;
+                }
+            }
+        }
+    }
+
     button {
         color: #000000;
         background: #ffffff;
@@ -227,6 +283,7 @@ section.add-contact {
         margin-top: 40px;
         border: 3px solid #ffffff;
         color: #ffffff;
+        align-self: flex-start;
     }
 
     .phone-number-input {

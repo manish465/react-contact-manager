@@ -1,28 +1,30 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+
+import { tokenContext } from "../context/TokenContext";
 
 const AddContact = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [companyName, setCompanyName] = useState("");
-    const [jobDesignation, setJobDesignation] = useState("");
-    const [description, setDescription] = useState("");
-    const [phoneNumbers, setPhoneNumbers] = useState([
-        {
-            countryCode: "",
-            number: "",
-            type: "",
-        },
-    ]);
+    const { handleSubmit, control, register } = useForm();
+    const { currentUser } = useContext(tokenContext);
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "phoneNumbers",
+    });
 
-    const addPhoneNumberInputs = () => {
-        setPhoneNumbers((nums) =>
-            nums.push({
-                countryCode: "",
-                number: "",
-                type: "",
-            })
-        );
+    console.log(currentUser);
+
+    const handleAddContact = (data) => {
+        axios
+            .post(
+                `http://localhost:8000/api/v1/contact/${currentUser.id}`,
+                data,
+                {
+                    headers: { Authorization: `Bearer ${currentUser.token}` },
+                }
+            )
+            .then(({ data }) => console.log(data))
+            .catch((err) => console.log(err.message));
     };
 
     return (
@@ -31,68 +33,76 @@ const AddContact = () => {
             <input
                 type="text"
                 placeholder="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                {...register("firstName")}
             />
             <input
                 type="text"
                 placeholder="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                {...register("lastName")}
             />
             <input
                 type="email"
+                name="contact.email"
                 placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
             />
             <input
                 type="text"
                 placeholder="Company Name"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
+                {...register("companyName")}
             />
             <input
                 type="text"
                 placeholder="Job Designation"
-                value={jobDesignation}
-                onChange={(e) => setJobDesignation(e.target.value)}
+                {...register("jobDesignation")}
             />
             <textarea
                 type="text"
                 placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                {...register("description")}
             />
-            {phoneNumbers.map((phoneNumber, key) => (
-                <div className="phone-number-input" key={key}>
+            {fields.map((field, key) => (
+                <div className="phone-number-input" key={field.id}>
                     <input
                         type="text"
                         placeholder="Country Code"
                         className="country-code"
+                        {...register(`phoneNumbers.${key}.countryCode`)}
                     />
                     <input
                         type="text"
                         placeholder="Phone Number"
                         className="number"
+                        {...register(`phoneNumbers.${key}.number`)}
                     />
                     <input
                         type="text"
                         placeholder="Contact Type"
                         className="type"
+                        {...register(`phoneNumbers.${key}.type`)}
                     />
-                    {phoneNumbers.length !== 1 && (
-                        <button className="remove secondary">REMOVE</button>
-                    )}
                     <button
-                        className="add secondary"
-                        onClick={addPhoneNumberInputs}
+                        className="remove secondary hover-anmiation"
+                        onClick={() => remove(key)}
                     >
-                        ADD PHONE
+                        REMOVE
                     </button>
                 </div>
             ))}
-            <button className="primary">SAVE CONTACT</button>
+            <button
+                className="remove secondary hover-anmiation"
+                onClick={() =>
+                    append({ countryCode: "", number: "", type: "" })
+                }
+            >
+                ADD PHONE
+            </button>
+            <button
+                className="primary hover-anmiation"
+                onClick={handleSubmit((data) => handleAddContact(data))}
+            >
+                SAVE CONTACT
+            </button>
         </section>
     );
 };
