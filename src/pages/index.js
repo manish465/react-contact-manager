@@ -5,6 +5,7 @@ import Dashboard from "./Dashboard";
 import Users from "./Users";
 import About from "./About";
 import Contacts from "./Contacts";
+import AddContact from "./AddContact";
 
 export const pageMap = [
     { path: "/", element: <Home /> },
@@ -14,4 +15,5 @@ export const pageMap = [
     { path: "/:userId/dashboard", element: <Dashboard /> },
     { path: "/:userId/users", element: <Users /> },
     { path: "/:userId/contacts", element: <Contacts /> },
+    { path: "/:userId/contacts/add", element: <AddContact /> },
 ];

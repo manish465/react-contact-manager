@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { tokenContext } from "../context/TokenContext";
 
 const Contacts = () => {
@@ -12,16 +13,18 @@ const Contacts = () => {
                 headers: { Authorization: `Bearer ${currentUser.token}` },
             })
             .then(({ data }) => {
-                console.log(data.users);
+                setContacts(data.contacts);
             })
             .catch((err) => alert(err.message));
-    }, [currentUser.id]);
+    }, [currentUser.id, currentUser.token]);
 
     return (
         <section className="my-contacts">
             <h1>My Contacts</h1>
             <div className="conatct-list"></div>
-            <button className="hover-anmiation">ADD CONTACT</button>
+            <Link to={`/${currentUser.id}/contacts/add`}>
+                <button className="hover-anmiation">ADD CONTACT</button>
+            </Link>
         </section>
     );
 };
