@@ -104,6 +104,11 @@ const TokenContext = ({ children }) => {
             .catch((err) => alert(err.message));
     };
 
+    const deleteCurrentUser = () => {
+        deleteUserById(currentUser.id);
+        handleLogout();
+    };
+
     const handleLogout = () => {
         setCurrentUser({
             id: -1,
@@ -129,6 +134,7 @@ const TokenContext = ({ children }) => {
                 fetchUserById,
                 fetchAllUsers,
                 deleteUserById,
+                deleteCurrentUser,
             }}
         >
             {children}
