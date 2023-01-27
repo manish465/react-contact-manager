@@ -1,9 +1,14 @@
+import { useContext } from "react";
+import { tokenContext } from "../context/TokenContext";
+
 const UserListItem = ({ name, email, userId }) => {
+    const { deleteUserById } = useContext(tokenContext);
+
     return (
         <div className="user-manager">
             <h3>{name}</h3>
             <h3>{email}</h3>
-            <button>DEL</button>
+            <button onClick={() => deleteUserById(userId)}>DEL</button>
         </div>
     );
 };

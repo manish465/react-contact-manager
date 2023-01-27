@@ -12,7 +12,9 @@ const Users = () => {
     return (
         <section className="users-manager">
             <h1>Manage Users</h1>
-            {users.length !== 0 &&
+            {users.length !== 0 && users.length === 1 ? (
+                <h3>No Users</h3>
+            ) : (
                 users.map((user, key) =>
                     user.role !== "admin" ? (
                         <UserListItem
@@ -22,7 +24,8 @@ const Users = () => {
                             userId={user.id}
                         />
                     ) : null
-                )}
+                )
+            )}
         </section>
     );
 };

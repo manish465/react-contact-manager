@@ -93,6 +93,17 @@ const TokenContext = ({ children }) => {
             });
     };
 
+    const deleteUserById = (id) => {
+        axios
+            .delete(`http://localhost:8000/api/v1/user/${id}`, {
+                headers: { Authorization: `Bearer ${currentUser.token}` },
+            })
+            .then(({ data }) => {
+                alert(data.msg);
+            })
+            .catch((err) => alert(err.message));
+    };
+
     const handleLogout = () => {
         setCurrentUser({
             id: -1,
@@ -117,6 +128,7 @@ const TokenContext = ({ children }) => {
                 handleLogout,
                 fetchUserById,
                 fetchAllUsers,
+                deleteUserById,
             }}
         >
             {children}
