@@ -18,10 +18,7 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route
-                        path="/user/:userId/dashboard"
-                        element={<Dashboard />}
-                    />
+                    <Route path="/:userId/dashboard" element={<Dashboard />} />
                 </Routes>
             </TokenContext>
         </BrowserRouter>

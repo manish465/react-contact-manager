@@ -5,15 +5,15 @@ import { useNavigate } from "react-router-dom";
 export const tokenContext = createContext();
 
 const TokenContext = ({ children }) => {
-    const [token, setToken] = useState("");
-    const [isAuthenticate, setIsAuthenticate] = useState(false);
     const [currentUser, setCurrentUser] = useState({
         id: -1,
+        token: "",
         firstName: "",
         lastName: "",
         email: "",
-        role: "",
+        isAdmin: false,
         isReady: false,
+        isAuthenticate: false,
     });
 
     const navigate = useNavigate();
@@ -45,35 +45,33 @@ const TokenContext = ({ children }) => {
             .post("http://localhost:8000/api/v1/user/signin", data)
             .then(({ data }) => {
                 if (data.code === 200) {
-                    setToken(data.token);
-                    setIsAuthenticate(true);
-                    alert(data.msg);
-                    navigate(`/user/${data.id}/dashboard`);
+                    setCurrentUser((user) => ({
+                        ...user,
+                        token: data.token,
+                        isAuthenticate: true,
+                        isAdmin: data.role.match("admin") ? true : false,
+                    }));
+                    navigate(`/${data.id}/dashboard`);
                 } else alert(data.msg);
             })
             .catch((err) => alert(err.message));
     };
 
-    const handleLogout = () => {
-        setToken("");
-        setIsAuthenticate(false);
-        navigate("/");
-    };
-
     const fetchUserById = (id) => {
         axios
             .get(`http://localhost:8000/api/v1/user/${id}`, {
-                headers: { Authorization: `Bearer ${token}` },
+                headers: { Authorization: `Bearer ${currentUser.token}` },
             })
             .then(({ data }) => {
-                setCurrentUser({
+                setCurrentUser((user) => ({
+                    ...user,
                     id: data.user.id,
                     firstName: data.user.firstName,
                     lastName: data.user.lastName,
                     email: data.user.email,
                     role: data.user.role,
                     isReady: true,
-                });
+                }));
             })
             .catch((err) => {
                 alert(err.message);
@@ -81,11 +79,23 @@ const TokenContext = ({ children }) => {
             });
     };
 
+    const handleLogout = () => {
+        setCurrentUser({
+            id: -1,
+            token: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            isAdmin: false,
+            isReady: false,
+            isAuthenticate: false,
+        });
+        navigate("/");
+    };
+
     return (
         <tokenContext.Provider
             value={{
-                token,
-                isAuthenticate,
                 currentUser,
                 handleSignIn,
                 handleSignUp,

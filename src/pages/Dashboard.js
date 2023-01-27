@@ -14,6 +14,7 @@ const Dashboard = () => {
     return (
         <section id="profile">
             <h1>PROFILE</h1>
+            {currentUser.isAdmin && <span>Hello Admin</span>}
             <h3>
                 <span>name : </span>
                 <span>
