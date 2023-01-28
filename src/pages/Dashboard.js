@@ -27,7 +27,7 @@ const Dashboard = () => {
                 <span>email : </span>
                 <span>{currentUser.isReady && currentUser.email}</span>
             </h3>
-            <div className="">
+            <div className="button-group">
                 <button className="primary hover-anmiation">
                     Update Profile
                 </button>

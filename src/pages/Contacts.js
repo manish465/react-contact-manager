@@ -9,12 +9,13 @@ const Contacts = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8000/api/v1/contact/${currentUser.id}`, {
-                headers: { Authorization: `Bearer ${currentUser.token}` },
-            })
-            .then(({ data }) => {
-                setContacts(data.contacts);
-            })
+            .get(
+                `http://localhost:8000/api/v1/contacts/user/${currentUser.id}`,
+                {
+                    headers: { Authorization: `Bearer ${currentUser.token}` },
+                }
+            )
+            .then(({ data }) => setContacts(data.contacts))
             .catch((err) => alert(err.message));
     }, [currentUser.id, currentUser.token]);
 
@@ -25,22 +26,22 @@ const Contacts = () => {
                 {contacts.length !== 0 &&
                     contacts.map((contact, key) => (
                         <div className="conatct" key={key}>
-                            <h2 className="hover-anmiation">
-                                {contact.firstName + " " + contact.lastName}
-                            </h2>
+                            <Link
+                                to={`/user/${currentUser.id}/conatct/${contact.id}`}
+                            >
+                                <h2 className="hover-anmiation">
+                                    {contact.firstName + " " + contact.lastName}
+                                </h2>
+                            </Link>
                             <h4>{contact.email}</h4>
                             <div className="button-group">
-                                <button className="update hover-anmiation">
-                                    UPD
-                                </button>
-                                <button className="delete hover-anmiation">
-                                    DEL
-                                </button>
+                                <button className="update">UPD</button>
+                                <button className="delete">DEL</button>
                             </div>
                         </div>
                     ))}
             </div>
-            <Link to={`/${currentUser.id}/contacts/add`}>
+            <Link to={`/user/${currentUser.id}/contacts/add`}>
                 <button className="hover-anmiation">ADD CONTACT</button>
             </Link>
         </section>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { tokenContext } from "../context/TokenContext";
 
@@ -11,17 +12,21 @@ const AddContact = () => {
         control,
         name: "phoneNumbers",
     });
+    const navigate = useNavigate();
 
     const handleAddContact = (data) => {
         axios
             .post(
-                `http://localhost:8000/api/v1/contact/${currentUser.id}`,
+                `http://localhost:8000/api/v1/contacts/user/${currentUser.id}`,
                 data,
                 {
                     headers: { Authorization: `Bearer ${currentUser.token}` },
                 }
             )
-            .then(({ data }) => console.log(data))
+            .then(({ data }) => {
+                alert(data.msg);
+                navigate(`/user/${currentUser.id}/contacts`);
+            })
             .catch((err) => console.log(err.message));
     };
 

@@ -253,6 +253,9 @@ section.my-contacts {
                     margin: 0;
                     width: 100%;
                     border: none;
+                    &:hover {
+                        color: #ffffff;
+                    }
                 }
                 button.update {
                     background-color: #7c7a7a;

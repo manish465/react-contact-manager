@@ -6,6 +6,7 @@ import Users from "./Users";
 import About from "./About";
 import Contacts from "./Contacts";
 import AddContact from "./AddContact";
+import Contact from "./Contact";
 
 export const pageMap = [
     { path: "/", element: <Home /> },
@@ -16,4 +17,5 @@ export const pageMap = [
     { path: "/user/:userId/users", element: <Users /> },
     { path: "/user/:userId/contacts", element: <Contacts /> },
     { path: "/user/:userId/contacts/add", element: <AddContact /> },
+    { path: "/user/:userId/conatct/:contactId", element: <Contact /> },
 ];
