@@ -10,7 +10,7 @@ const NavBar = () => {
             <Link
                 to={
                     currentUser.isAuthenticate
-                        ? `/${currentUser.id}/dashboard`
+                        ? `/user/${currentUser.id}/dashboard`
                         : "/"
                 }
             >
@@ -21,21 +21,21 @@ const NavBar = () => {
                     <button className="secondary hover-anmiation">About</button>
                 </Link>
                 {currentUser.isAuthenticate && (
-                    <Link to={`/${currentUser.id}/dashboard`}>
+                    <Link to={`/user/${currentUser.id}/dashboard`}>
                         <button className="secondary hover-anmiation">
                             Dashboard
                         </button>
                     </Link>
                 )}
                 {currentUser.isAuthenticate && !currentUser.isAdmin && (
-                    <Link to={`/${currentUser.id}/contacts`}>
+                    <Link to={`/user/${currentUser.id}/contacts`}>
                         <button className="secondary hover-anmiation">
                             Manage Contacts
                         </button>
                     </Link>
                 )}
                 {currentUser.isAuthenticate && currentUser.isAdmin && (
-                    <Link to={`/${currentUser.id}/users`}>
+                    <Link to={`/user/${currentUser.id}/users`}>
                         <button className="secondary hover-anmiation">
                             Manage Users
                         </button>

@@ -12,8 +12,8 @@ export const pageMap = [
     { path: "/login", element: <Login /> },
     { path: "/about", element: <About /> },
     { path: "/register", element: <Register /> },
-    { path: "/:userId/dashboard", element: <Dashboard /> },
-    { path: "/:userId/users", element: <Users /> },
-    { path: "/:userId/contacts", element: <Contacts /> },
-    { path: "/:userId/contacts/add", element: <AddContact /> },
+    { path: "/user/:userId/dashboard", element: <Dashboard /> },
+    { path: "/user/:userId/users", element: <Users /> },
+    { path: "/user/:userId/contacts", element: <Contacts /> },
+    { path: "/user/:userId/contacts/add", element: <AddContact /> },
 ];

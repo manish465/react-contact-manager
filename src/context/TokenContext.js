@@ -51,7 +51,7 @@ const TokenContext = ({ children }) => {
                         isAuthenticate: true,
                         isAdmin: data.role.match("admin") ? true : false,
                     }));
-                    navigate(`/${data.id}/dashboard`);
+                    navigate(`/user/${data.id}/dashboard`);
                 } else alert(data.msg);
             })
             .catch((err) => alert(err.message));

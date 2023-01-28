@@ -12,8 +12,6 @@ const AddContact = () => {
         name: "phoneNumbers",
     });
 
-    console.log(currentUser);
-
     const handleAddContact = (data) => {
         axios
             .post(
