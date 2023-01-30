@@ -145,7 +145,7 @@ section.register {
 }
 
 section#profile {
-    margin-top: 200px;
+    margin-top: 30px;
     border: 3px dashed #ffffff;
 
     h1 {
@@ -168,7 +168,17 @@ section#profile {
         }
     }
     button {
+        color: #ffffff;
         margin: 30px 20px;
+        border: 2px solid #ffffff;
+    }
+
+    .phone-number {
+        width: 100%;
+        display: flex;
+        color: #ffffff;
+        font-size: 30px;
+        justify-content: space-around;
     }
 }
 
@@ -192,6 +202,7 @@ section.users-manager {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin: 0 80px;
 
         button {
             border: 2px solid #ffffff;
@@ -223,9 +234,10 @@ section.my-contacts {
             color: #ffffff;
             border: 2px dashed #ffffff;
             background-color: #494949;
-            border-radius: 30px;
+            border-radius: 40px;
             overflow: hidden;
             flex-basis: 50%;
+            justify-content: space-between;
 
             h2 {
                 cursor: pointer;
@@ -246,6 +258,7 @@ section.my-contacts {
                 justify-content: space-around;
                 align-self: stretch;
                 border-radius: inherit;
+
                 button {
                     border-radius: inherit;
                     border-radius: 0;

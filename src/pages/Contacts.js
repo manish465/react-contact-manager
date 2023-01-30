@@ -35,8 +35,8 @@ const Contacts = () => {
                             </Link>
                             <h4>{contact.email}</h4>
                             <div className="button-group">
-                                <button className="update">UPD</button>
-                                <button className="delete">DEL</button>
+                                <button className="update">UPDATE</button>
+                                <button className="delete">DELELE</button>
                             </div>
                         </div>
                     ))}

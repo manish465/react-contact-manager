@@ -18,16 +18,14 @@ const Contact = () => {
                 }
             )
             .then(({ data }) => {
-                if (data.code === 200) {
-                    setContact(data.contact);
-                } else {
-                    console.log(data);
-                }
+                if (data.code === 200) setContact(data.contact);
+                else console.log(data);
             })
             .catch(({ message }) => {
-                console.log(message);
+                alert(message);
+                navigate("/");
             });
-    }, [contactId, currentUser.id, currentUser.token]);
+    }, [contactId, currentUser.id, currentUser.token, navigate]);
 
     return (
         <section id="profile">
@@ -52,40 +50,28 @@ const Contact = () => {
                         <span>job designation : </span>
                         <span>{contact.work.jobDesignation}</span>
                     </h3>
-                    {contact.phoneNumbers.map((phoneNumber, key) => (
-                        <div key={key}>
-                            <h3>
-                                <span>country code : </span>
-                                <span>
-                                    {contact
-                                        ? phoneNumber.countryCode
-                                        : "feching....."}
-                                </span>
-                            </h3>
-                            <h3>
-                                <span>number : </span>
-                                <span>
-                                    {contact
-                                        ? phoneNumber.number
-                                        : "feching....."}
-                                </span>
-                            </h3>
-                            <h3>
-                                <span>type : </span>
-                                <span>
-                                    {contact
-                                        ? phoneNumber.type
-                                        : "feching....."}
-                                </span>
-                            </h3>
-                        </div>
-                    ))}
                     <h3>
-                        <span>country code : </span>
+                        <span>description : </span>
                         <span>
                             {contact ? contact.description : "feching....."}
                         </span>
                     </h3>
+                    <h1>Numbers:</h1>
+                    {contact.phoneNumbers.map((phoneNumber, key) => (
+                        <div className="phone-number" key={key}>
+                            <div>
+                                {contact
+                                    ? "+" + phoneNumber.countryCode
+                                    : "feching....."}
+                            </div>
+                            <div>
+                                {contact ? phoneNumber.number : "feching....."}
+                            </div>
+                            <div>
+                                {contact ? phoneNumber.type : "feching....."}
+                            </div>
+                        </div>
+                    ))}
                 </>
             ) : (
                 ""
