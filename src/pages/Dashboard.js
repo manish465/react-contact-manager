@@ -5,8 +5,7 @@ import { tokenContext } from "../context/TokenContext";
 const Dashboard = () => {
     const { userId } = useParams();
 
-    const { currentUser, fetchUserById, deleteCurrentUser } =
-        useContext(tokenContext);
+    const { currentUser, fetchUserById } = useContext(tokenContext);
 
     useEffect(() => {
         fetchUserById(userId);
@@ -31,10 +30,7 @@ const Dashboard = () => {
                 <button className="primary hover-anmiation">
                     Update Profile
                 </button>
-                <button
-                    className="primary hover-anmiation"
-                    onClick={deleteCurrentUser}
-                >
+                <button className="primary hover-anmiation">
                     Delete Profile
                 </button>
             </div>
