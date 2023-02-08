@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { url } from "../config";
 import { tokenContext } from "../context/TokenContext";
 
 const Contact = () => {
@@ -12,7 +13,7 @@ const Contact = () => {
     useEffect(() => {
         axios
             .get(
-                `http://localhost:8000/api/v1/contacts/user/${currentUser.id}/contact/${contactId}`,
+                `${url}/api/v1/contacts/user/${currentUser.id}/contact/${contactId}`,
                 {
                     headers: { Authorization: `Bearer ${currentUser.token}` },
                 }

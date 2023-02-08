@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { url } from "../config";
 
 export const tokenContext = createContext();
 
@@ -25,7 +26,7 @@ const TokenContext = ({ children }) => {
         }
 
         axios
-            .post("http://localhost:8000/api/v1/user/signup", {
+            .post(url + "/api/v1/user/signup", {
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: data.email,
@@ -42,7 +43,7 @@ const TokenContext = ({ children }) => {
 
     const handleSignIn = (data) => {
         axios
-            .post("http://localhost:8000/api/v1/user/signin", data)
+            .post(url + "/api/v1/user/signin", data)
             .then(({ data }) => {
                 if (data.code === 200) {
                     setCurrentUser((user) => ({
@@ -59,7 +60,7 @@ const TokenContext = ({ children }) => {
 
     const fetchUserById = (id) => {
         axios
-            .get(`http://localhost:8000/api/v1/user/${id}`, {
+            .get(`${url}/api/v1/user/${id}`, {
                 headers: { Authorization: `Bearer ${currentUser.token}` },
             })
             .then(({ data }) => {
@@ -81,7 +82,7 @@ const TokenContext = ({ children }) => {
 
     const fetchAllUsers = () => {
         axios
-            .get("http://localhost:8000/api/v1/user", {
+            .get(url + "/api/v1/user", {
                 headers: { Authorization: `Bearer ${currentUser.token}` },
             })
             .then(({ data }) => {
@@ -95,7 +96,7 @@ const TokenContext = ({ children }) => {
 
     const deleteUserById = (id) => {
         axios
-            .delete(`http://localhost:8000/api/v1/user/${id}`, {
+            .delete(`${url}/api/v1/user/${id}`, {
                 headers: { Authorization: `Bearer ${currentUser.token}` },
             })
             .then(({ data }) => {

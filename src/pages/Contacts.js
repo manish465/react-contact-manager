@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { url } from "../config";
 import { tokenContext } from "../context/TokenContext";
 
 const Contacts = () => {
@@ -9,12 +10,9 @@ const Contacts = () => {
 
     useEffect(() => {
         axios
-            .get(
-                `http://localhost:8000/api/v1/contacts/user/${currentUser.id}`,
-                {
-                    headers: { Authorization: `Bearer ${currentUser.token}` },
-                }
-            )
+            .get(`${url}/api/v1/contacts/user/${currentUser.id}`, {
+                headers: { Authorization: `Bearer ${currentUser.token}` },
+            })
             .then(({ data }) => setContacts(data.contacts))
             .catch((err) => alert(err.message));
     }, [currentUser.id, currentUser.token]);
